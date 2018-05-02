@@ -53,10 +53,10 @@ int ImageMatrixTools::ImageToMatrix(Eigen::MatrixXd*& eigenMatrix, std::string l
 
 void ImageMatrixTools::MatrixToImage(Eigen::MatrixXd* eigenMatrix, std::string location)
 {
-	cv::Mat image;
-
 	int imageRows = eigenMatrix->rows();
 	int imageCols = eigenMatrix->cols() / 3;
+
+	cv::Mat image(imageRows, imageCols, CV_8UC3);
 
 	int offset = 0;
 	for (int i = 0; i < imageRows; ++i)
@@ -72,4 +72,6 @@ void ImageMatrixTools::MatrixToImage(Eigen::MatrixXd* eigenMatrix, std::string l
 			offset += 3;
 		}
 	}
+
+	cv::imwrite(location, image);
 }
