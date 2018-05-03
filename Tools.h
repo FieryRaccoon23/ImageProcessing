@@ -25,6 +25,11 @@ public:
 
 	static
 	void GaussianKernel(Eigen::MatrixXd*& Kernel, float sigma);
+
+	static
+	void PadMatrixAround(Eigen::MatrixXd*& Input, int newRow, int newCol, float value = 0.0f);
+
+
 	
 };
 
