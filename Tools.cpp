@@ -147,7 +147,9 @@ void Tools::InverseFourierTransform(Eigen::MatrixXd*& Output,
 
 void Tools::FourierConvolution(Eigen::MatrixXd*& Output, Eigen::MatrixXd* Input, Eigen::MatrixXd* K, bool shiftFromCenter, bool halfSpectrum)
 {
-	int imgRows = Input->rows();
+	assert(Input->rows() == K->rows() && Input->cols() == K->cols());
+
+	int imgRows    = Input->rows();
 	int imgColumns = Input->cols();
 
 	Eigen::Matrix<std::complex<float>, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> freqDomainOutputImage(imgRows, imgColumns);
@@ -184,3 +186,22 @@ void Tools::GaussianKernel(Eigen::MatrixXd*& Kernel, float sigma)
 	}
 	(*Kernel) /= Kernel->sum();
 }
+
+void Tools::PadMatrixAround(Eigen::MatrixXd*& Input, int newRow, int newCol, float value)
+{
+	Eigen::MatrixXd* mat = new Eigen::MatrixXd(newRow, newCol);
+	*mat = Eigen::MatrixXd::Constant(newRow,newCol, value);
+
+	assert(Input->rows() < newRow && Input->cols() < newCol);
+
+	int startRow = (newRow - Input->rows()) / 2;
+	int startCol = (newCol - Input->cols()) / 2;
+
+	mat->block(startRow, startCol, Input->rows(), Input->cols()) = (*Input);
+
+	//delete matrix
+	Input->resize(0, 0);
+
+	Input = mat;
+}
+
