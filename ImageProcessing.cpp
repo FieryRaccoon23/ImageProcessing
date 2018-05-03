@@ -2,6 +2,7 @@
 #include "IncludedLibraries.h"
 #include "Display.h"
 #include "Tools.h"
+#include "ImageMatrixTools.h"
 
 using Eigen::MatrixXd;
 using namespace std;
@@ -22,16 +23,33 @@ int main(int argc, char* argv[])
 	//Tools::FourierConvolution(O, I, K);
 	//
 	//Tools::GaussianKernel(K, 3.0f);
-	Eigen::MatrixXd Kernel(5,5);
+
+	int row = 250;
+	int col = 250;
+
+	Eigen::MatrixXd Kernel(3, 3);
 	Eigen::MatrixXd* K = &Kernel;
 
-	Eigen::MatrixXd Input(5, 5);
-	Eigen::MatrixXd* I = &Input;
+	//Eigen::MatrixXd Input(row, col * 3);
+	Eigen::MatrixXd* I = nullptr;// = &Input;
+	Eigen::MatrixXd* r = nullptr;
+	Eigen::MatrixXd* g = nullptr;
+	Eigen::MatrixXd* b = nullptr;
 
-	Eigen::MatrixXd Output(5, 5);
+
+	Eigen::MatrixXd Output(row, col * 3);
 	Eigen::MatrixXd* O = &Output;
 
 	Tools::GaussianKernel(K, 3.0f);
+	
+	//int error = ImageMatrixTools::ImageToMatrix(I, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/RedSpot.jpg");
+	
+	//Tools::PadMatrixAround(K, row, col * 3);
+	//Tools::FourierConvolution(O, I, K, true, false);
+	//ImageMatrixTools::MatrixToImage(I, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/Result.jpg");
+
+	ImageMatrixTools::RGBImageToRGBMatrix(r,g,b, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/RedSpot.jpg");
+	ImageMatrixTools::RGBMatrixToRGBImage(r,g,b, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/Result.jpg");
 
 	return 0;
 }
