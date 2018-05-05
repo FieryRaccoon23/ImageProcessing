@@ -134,7 +134,7 @@ void ImageMatrixTools::RGBMatrixToRGBImage(Eigen::MatrixXd* red, Eigen::MatrixXd
 	int imageCols = red->cols();
 
 	cv::Mat image(imageRows, imageCols, CV_8UC3);
-	
+
 	for (int i = 0; i < imageRows; ++i)
 	{
 		for (int j = 0; j < imageCols; ++j)

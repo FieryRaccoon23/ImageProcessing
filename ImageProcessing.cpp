@@ -27,8 +27,8 @@ int main(int argc, char* argv[])
 	//int row = 240;//148;
 	//int col = 240;//192;
 
-	Eigen::MatrixXd Kernel(3, 3);
-	Eigen::MatrixXd* K = &Kernel;
+	//Eigen::MatrixXd Kernel(3, 3);
+	//Eigen::MatrixXd* K = &Kernel;
 
 	Eigen::MatrixXd* I = nullptr;
 	Eigen::MatrixXd* r = nullptr;
@@ -41,20 +41,26 @@ int main(int argc, char* argv[])
 	Eigen::MatrixXd* Og = nullptr;
 	Eigen::MatrixXd* Ob = nullptr;
 
-	Tools::GaussianKernel(K, 1.0f);
+	//Tools::GaussianKernel(K, 10.0f);
 	
-	//int error = ImageMatrixTools::ImageToMatrix(I, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/7.jpg");
-	//
-	////Tools::PadMatrixAround(K, row, col * 3);
-	////Tools::FourierConvolution(O, I, K, true, false);
-	//ImageMatrixTools::MatrixToImage(I, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/Result.jpg");
+	std::vector<int> imageSize = ImageMatrixTools::RGBImageToRGBMatrix(r,g,b, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/Square.jpg");
+	//Tools::PadMatrixAround(K, imageSize[0] , imageSize[1] );
+	//Tools::PadMatrixAround(r, imageSize[0] , imageSize[1] );
+	//Tools::PadMatrixAround(g, imageSize[0] , imageSize[1] );
+	//Tools::PadMatrixAround(b, imageSize[0] , imageSize[1] );
 
-	std::vector<int> imageSize = ImageMatrixTools::RGBImageToRGBMatrix(r,g,b, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/7.jpg");
-	Tools::PadMatrixAround(K, imageSize[0], imageSize[0]);
-	//Tools::FourierConvolution(Or, r, K, true, false);
-	//Tools::FourierConvolution(Og, g, K, true, false);
-	//Tools::FourierConvolution(Ob, b, K, true, false);
-	ImageMatrixTools::RGBMatrixToRGBImage(r,g,b, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/Result.jpg");
+	Eigen::MatrixXd Filter(10,10);
+	Eigen::MatrixXd* F = &Filter;
+	Tools::GaussianKernel(F, 3.0f);
+	Tools::PadMatrixAround(F, imageSize[0], imageSize[1]);
+	Tools::FourierConvolution(Or, r, F, false, false);
+	Tools::FourierConvolution(Og, g, F, false, false);
+	Tools::FourierConvolution(Ob, b, F, false, false);
+	Tools::ShiftMatrixCenter(Or);
+	Tools::ShiftMatrixCenter(Og);
+	Tools::ShiftMatrixCenter(Ob);
+
+	ImageMatrixTools::RGBMatrixToRGBImage(Or,Og,Ob, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/Result.jpg");
 
 	return 0;
 }

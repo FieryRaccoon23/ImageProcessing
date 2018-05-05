@@ -29,7 +29,8 @@ public:
 	static
 	void PadMatrixAround(Eigen::MatrixXd*& Input, int newRow, int newCol, float value = 0.0f);
 
-
+	static
+	void ShiftMatrixCenter(Eigen::MatrixXd*& Input);
 	
 };
 

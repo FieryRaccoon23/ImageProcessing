@@ -5,13 +5,13 @@ using namespace std;
 
 void changeViewPort(int w, int h)
 {
-	glViewport(0, 0, w, h);
+	//glViewport(0, 0, w, h);
 }
 
 void render()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glutSwapBuffers();
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glutSwapBuffers();
 }
 
 Display::Display()
@@ -24,7 +24,7 @@ Display::~Display()
 }
 
 uint16_t Display::DrawWindow(int argc, char* argv[], char* title)
-{
+{/*
 	// Initialize GLUT
 	glutInit(&argc, argv);
 	// Set up some memory buffers for our display
@@ -47,7 +47,7 @@ uint16_t Display::DrawWindow(int argc, char* argv[], char* title)
 	}
 
 	glutMainLoop();
-
+	*/
 	return 0;
 }
 

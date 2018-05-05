@@ -165,6 +165,7 @@ void Tools::FourierConvolution(Eigen::MatrixXd*& Output, Eigen::MatrixXd* Input,
 	freqDomainOutputImage = freqDomainInputImage.cwiseProduct(freqDomainKernel);
 
 	//DSFT: Frequency Domain Output Image =======> Time Domain Output Image
+	Output = new Eigen::MatrixXd(imgRows, imgColumns);
 	InverseFourierTransform(Output, freqDomainOutputImage, shiftFromCenter, halfSpectrum);
 }
 
@@ -205,3 +206,21 @@ void Tools::PadMatrixAround(Eigen::MatrixXd*& Input, int newRow, int newCol, flo
 	Input = mat;
 }
 
+void Tools::ShiftMatrixCenter(Eigen::MatrixXd*& Input)
+{
+	int imageRows = Input->rows();
+	int imageCols = Input->cols();
+
+	Eigen::MatrixXd* shiftedMatrix = new Eigen::MatrixXd(imageRows, imageCols);
+
+	for (int i = 0; i < imageRows; ++i)
+	{
+		for (int j = 0; j < imageCols; ++j)
+		{
+			(*shiftedMatrix)((i + imageRows / 2) % imageRows, (j + imageCols / 2) % imageCols) = (*Input)(i, j);
+		}
+	}
+
+	Input->resize(0,0);
+	Input = shiftedMatrix;
+}
