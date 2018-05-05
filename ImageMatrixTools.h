@@ -8,10 +8,10 @@ public:
 	~ImageMatrixTools();
 
 	static
-	int ImageToMatrix(Eigen::MatrixXd*& eigenMatrix, std::string location);
+	std::vector<int> ImageToMatrix(Eigen::MatrixXd*& eigenMatrix, std::string location);
 
 	static
-	int RGBImageToRGBMatrix(Eigen::MatrixXd*& red, Eigen::MatrixXd*& green, Eigen::MatrixXd*& blue, std::string location);
+	std::vector<int> RGBImageToRGBMatrix(Eigen::MatrixXd*& red, Eigen::MatrixXd*& green, Eigen::MatrixXd*& blue, std::string location);
 
 	static
 	void MatrixToImage(Eigen::MatrixXd* eigenMatrix, std::string location);
