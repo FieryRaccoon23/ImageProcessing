@@ -24,31 +24,36 @@ int main(int argc, char* argv[])
 	//
 	//Tools::GaussianKernel(K, 3.0f);
 
-	int row = 250;
-	int col = 250;
+	//int row = 240;//148;
+	//int col = 240;//192;
 
 	Eigen::MatrixXd Kernel(3, 3);
 	Eigen::MatrixXd* K = &Kernel;
 
-	//Eigen::MatrixXd Input(row, col * 3);
-	Eigen::MatrixXd* I = nullptr;// = &Input;
+	Eigen::MatrixXd* I = nullptr;
 	Eigen::MatrixXd* r = nullptr;
 	Eigen::MatrixXd* g = nullptr;
 	Eigen::MatrixXd* b = nullptr;
 
 
-	Eigen::MatrixXd Output(row, col * 3);
-	Eigen::MatrixXd* O = &Output;
+	//Eigen::MatrixXd Output(row, col);
+	Eigen::MatrixXd* Or = nullptr;
+	Eigen::MatrixXd* Og = nullptr;
+	Eigen::MatrixXd* Ob = nullptr;
 
-	Tools::GaussianKernel(K, 3.0f);
+	Tools::GaussianKernel(K, 1.0f);
 	
-	//int error = ImageMatrixTools::ImageToMatrix(I, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/RedSpot.jpg");
-	
-	//Tools::PadMatrixAround(K, row, col * 3);
-	//Tools::FourierConvolution(O, I, K, true, false);
+	//int error = ImageMatrixTools::ImageToMatrix(I, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/7.jpg");
+	//
+	////Tools::PadMatrixAround(K, row, col * 3);
+	////Tools::FourierConvolution(O, I, K, true, false);
 	//ImageMatrixTools::MatrixToImage(I, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/Result.jpg");
 
-	ImageMatrixTools::RGBImageToRGBMatrix(r,g,b, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/RedSpot.jpg");
+	std::vector<int> imageSize = ImageMatrixTools::RGBImageToRGBMatrix(r,g,b, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/7.jpg");
+	Tools::PadMatrixAround(K, imageSize[0], imageSize[0]);
+	//Tools::FourierConvolution(Or, r, K, true, false);
+	//Tools::FourierConvolution(Og, g, K, true, false);
+	//Tools::FourierConvolution(Ob, b, K, true, false);
 	ImageMatrixTools::RGBMatrixToRGBImage(r,g,b, "C:/Users/Araib/Documents/Visual Studio 2015/Projects/ImageProcessing/ImageProcessing/Images/Result.jpg");
 
 	return 0;
