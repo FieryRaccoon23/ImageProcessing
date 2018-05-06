@@ -188,6 +188,38 @@ void Tools::GaussianKernel(Eigen::MatrixXd*& Kernel, float sigma)
 	(*Kernel) /= Kernel->sum();
 }
 
+void Tools::SobelGradientX(Eigen::MatrixXd*& G, int rows, int cols)
+{
+	G = new Eigen::MatrixXd(3, 3);
+	G->data()[0] = 1.0f;
+	G->data()[1] = 0.0f;
+	G->data()[2] = -1.0f;
+	G->data()[3] = 2.0f;
+	G->data()[4] = 0.0f;
+	G->data()[5] = -2.0f;
+	G->data()[6] = 1.0f;
+	G->data()[7] = 0.0f;
+	G->data()[8] = -1.0f;
+
+	Tools::PadMatrixAround(G, rows, cols);
+}
+
+void Tools::SobelGradientY(Eigen::MatrixXd*& G, int rows, int cols)
+{
+	G = new Eigen::MatrixXd(3, 3);
+	G->data()[0] = 1.0f;
+	G->data()[1] = 2.0f;
+	G->data()[2] = 1.0f;
+	G->data()[3] = 0.0f;
+	G->data()[4] = 0.0f;
+	G->data()[5] = 0.0f;
+	G->data()[6] = -1.0f;
+	G->data()[7] = -2.0f;
+	G->data()[8] = -1.0f;
+
+	Tools::PadMatrixAround(G, rows, cols);
+}
+
 void Tools::PadMatrixAround(Eigen::MatrixXd*& Input, int newRow, int newCol, float value)
 {
 	Eigen::MatrixXd* mat = new Eigen::MatrixXd(newRow, newCol);
