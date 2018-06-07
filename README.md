@@ -8,3 +8,7 @@ Eigen: Used for matrix operations
 OpenCV: Image to matrix and vice versa conversion
 OpenGL: Will be used for a simple GUI and displaying results
 CUDA: Will be used to speed up the algorithms with multi-threading
+
+# Papers/Sites Used
+https://arxiv.org/pdf/1410.2596.pdf
+https://arxiv.org/pdf/0810.3286.pdf
